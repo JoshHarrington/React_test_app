@@ -1,39 +1,61 @@
 import React from 'react';
 import { CsvToHtmlTable } from './components/csvToHtmlTable';
 import axios from 'axios';
+// import { csvToJson } from './components/utils';
+// import ReactTable from 'react-table'
 
 class Home extends React.Component {
 
 	state = {
-    casesCSV: ''
+		casesCSV: ''
+		// jsonTable: ''
 	}
 
-	// change to Will Mount?
   componentDidMount() {
     axios.get(`http://localhost:3000/cases.csv`)
       .then(res => {
         const casesCSV = res.data;
-        this.setState({ casesCSV });
-			})
+				this.setState({ casesCSV });
+				// const jsonTable = csvToJson(res.data.trim(), ',');
+				// this.setState({ jsonTable });
+			});
+	}
 
-		const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+	render() {
 
-		const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
-				v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
-				)(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
 
-		// do the work...
-		document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-				const table = th.closest('table');
-				Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
-						.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-						.forEach(tr => table.appendChild(tr) );
-		})));
-  }
+		/// *** Work below, in progress
+		/// *** Sortable table element was going to be used
+		/// *** but not working right now
 
-  render() {
+		// if (this.state.jsonTable) {
+		// 	console.log(this.state.jsonTable);
+		// }
+
+		// const columns = [{
+		// 	Header: 'Case Number',
+		// 	accessor: 'caseNumber'
+		// }, {
+		// 	Header: 'Date Created',
+		// 	accessor: 'dateCreated'
+		// }, {
+		// 	Header: 'Date Update',
+		// 	accessor: 'dateUpdated'
+		// }, {
+		// 	Header: 'Status',
+		// 	accessor: 'status'
+		// }, {
+		// 	Header: 'Refer Status',
+		// 	accessor: 'refer-status'
+		// }];
+
+
     return (
 			<div>
+				{/* <ReactTable
+					data={data}
+					columns={columns}
+				/> */}
 				<CsvToHtmlTable
 					data={this.state.casesCSV}
 					csvDelimiter=","

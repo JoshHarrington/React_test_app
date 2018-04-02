@@ -15,7 +15,7 @@ class CsvToHtmlTable extends React.Component {
   }
 
   renderTableHeader = (row) => {
-    let lesionPhoto = row.splice(5, 1)[0];
+    row.splice(5, 1)[0];
     if (row) {
       row.forEach(function(column, i) {
         let columnHeader = row[i];
@@ -36,7 +36,7 @@ class CsvToHtmlTable extends React.Component {
   renderTableBody = (rows) => {
     rows.forEach(function(row) {
 
-      let photoToDelete = row.splice(5, 1)[0];
+      row.splice(5, 1)[0];
 
       const dateCreated = row[1];
       row[1] = moment.unix(dateCreated).format("DD/MM/YYYY");
@@ -72,7 +72,6 @@ class CsvToHtmlTable extends React.Component {
     if (this.props.hasHeader) {
       headerRow = rowsWithColumns.splice(0, 1)[0];
     }
-
 
     return (
       <table className={`csv-html-table ${this.props.tableClassName}`}>

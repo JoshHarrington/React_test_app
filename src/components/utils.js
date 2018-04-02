@@ -14,11 +14,28 @@ export function parseCsvToRowsAndColumn(csvText, csvColumnDelimiter = '\t') {
     return rowsWithColumns;
 }
 
-export function parseCsvToRowsAndColumnEdit(csvText, csvColumnDelimiter = '\t') {
-    const rows = csvText.split('\n');
-    const rowsWithColumns = map(rows, (row) => {
-        return row.split(csvColumnDelimiter);
-		});
+export function csvToJson(csvText, csvColumnDelimiter = '\t') {
+  const lines = csvText.split('\n');
+  let result = [];
+	let headers = lines[0].trim().split(csvColumnDelimiter);
+	headers.splice(5, 1)[0];
 
-    return rowsWithColumns;
+  for(var i=1; i<lines.length; i++){
+
+	  let obj = {};
+		let currentline = lines[i].trim().split(csvColumnDelimiter);
+		currentline.splice(5, 1)[0];
+
+	  for(let j=0; j<headers.length; j++){
+		  obj[headers[j]] = currentline[j];
+		}
+
+	  result.push(obj);
+	}
+
+	Object.keys(result).map(function(key) {
+		return [Number(key), result[key]];
+	});
+
+
 }
