@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { CsvToContent } from './components/csvToContent';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Case extends React.Component {
@@ -21,6 +22,7 @@ class Case extends React.Component {
 
     return (
 			<div>
+				<Link to="/">Home button</Link>
 				<CsvToContent
 					data={this.state.casesCSV}
 					csvDelimiter=","
