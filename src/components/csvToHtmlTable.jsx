@@ -15,6 +15,7 @@ class CsvToHtmlTable extends React.Component {
   }
 
   renderTableHeader = (row) => {
+    // eslint-disable-next-line
     row.splice(5, 1)[0];
     if (row) {
       row.forEach(function(column, i) {
@@ -36,6 +37,7 @@ class CsvToHtmlTable extends React.Component {
   renderTableBody = (rows) => {
     rows.forEach(function(row) {
 
+      // eslint-disable-next-line
       row.splice(5, 1)[0];
 
       const dateCreated = row[1];

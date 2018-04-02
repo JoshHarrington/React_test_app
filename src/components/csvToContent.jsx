@@ -25,7 +25,7 @@ class CsvToContent extends React.Component {
 		return (
 			<div className="caseBlock">
 				<div className="caseImg-container">
-					<img src={lesionPhoto} width="100%" className="caseImg" alt={`Lesion photo for Case number ${id}`}/>
+					<img src={lesionPhoto} width="100%" className="caseImg" alt={`Lesion inspection for Case number ${id}`}/>
 				</div>
 				<div className="caseContent-container">
 					<p><span className="caseContent-title">Case Number:</span><br/>{id}</p>

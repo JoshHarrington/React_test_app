@@ -18,12 +18,14 @@ export function csvToJson(csvText, csvColumnDelimiter = '\t') {
   const lines = csvText.split('\n');
   let result = [];
 	let headers = lines[0].trim().split(csvColumnDelimiter);
+	// eslint-disable-next-line
 	headers.splice(5, 1)[0];
 
   for(var i=1; i<lines.length; i++){
 
 	  let obj = {};
 		let currentline = lines[i].trim().split(csvColumnDelimiter);
+		// eslint-disable-next-line
 		currentline.splice(5, 1)[0];
 
 	  for(let j=0; j<headers.length; j++){
@@ -33,6 +35,7 @@ export function csvToJson(csvText, csvColumnDelimiter = '\t') {
 	  result.push(obj);
 	}
 
+	// eslint-disable-next-line
 	Object.keys(result).map(function(key) {
 		return [Number(key), result[key]];
 	});
