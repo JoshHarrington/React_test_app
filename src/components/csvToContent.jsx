@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
 import Moment from 'react-moment';
 import * as titleCase from 'title-case';
 import { parseCsvToRowsAndColumn } from './utils';
@@ -26,7 +25,7 @@ class CsvToContent extends React.Component {
 		return (
 			<div className="caseBlock">
 				<div className="caseImg-container">
-					<img src={lesionPhoto} width="100%" className="caseImg"/>
+					<img src={lesionPhoto} width="100%" className="caseImg" alt={`Lesion photo for Case number ${id}`}/>
 				</div>
 				<div className="caseContent-container">
 					<p><span className="caseContent-title">Case Number:</span><br/>{id}</p>
@@ -42,7 +41,7 @@ class CsvToContent extends React.Component {
 
   render() {
     const rowsWithColumns = parseCsvToRowsAndColumn(this.props.data.trim(), this.props.csvDelimiter);
-		const rowPick = this.props.caseId - 1;
+		const rowPick = this.props.caseId;
 		const rowPickContent = rowsWithColumns[rowPick];
 
     return (

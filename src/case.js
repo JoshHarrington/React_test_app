@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { CsvToContent } from './components/csvToContent';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -12,10 +11,10 @@ class Case extends React.Component {
 
   componentDidMount() {
 		axios.get(`http://localhost:3000/cases.csv`)
-		.then(res => {
-			const casesCSV = res.data;
-			this.setState({ casesCSV });
-		})
+			.then(res => {
+				const casesCSV = res.data;
+				this.setState({ casesCSV });
+			})
   }
 
   render() {

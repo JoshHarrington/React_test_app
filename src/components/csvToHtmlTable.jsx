@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { Link } from 'react-router-dom';
 import * as moment from 'moment';
-import Moment from 'react-moment';
 import * as titleCase from 'title-case';
 import { parseCsvToRowsAndColumn } from './utils';
 
@@ -16,7 +15,7 @@ class CsvToHtmlTable extends React.Component {
   }
 
   renderTableHeader = (row) => {
-    const lesionPhoto = row.splice(5, 1)[0];
+    let lesionPhoto = row.splice(5, 1)[0];
     if (row) {
       row.forEach(function(column, i) {
         let columnHeader = row[i];
@@ -37,7 +36,7 @@ class CsvToHtmlTable extends React.Component {
   renderTableBody = (rows) => {
     rows.forEach(function(row) {
 
-      const photoToDelete = row.splice(5, 1)[0];
+      let photoToDelete = row.splice(5, 1)[0];
 
       const dateCreated = row[1];
       row[1] = moment.unix(dateCreated).format("DD/MM/YYYY");
