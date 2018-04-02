@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
-import Timestamp from 'react-timestamp';
-
+import Moment from 'react-moment';
+import * as titleCase from 'title-case';
 import { parseCsvToRowsAndColumn } from './utils';
 
 class CsvToContent extends React.Component {
@@ -17,31 +17,28 @@ class CsvToContent extends React.Component {
 		const id = rows.splice(0, 1)[0];
 		const dateCreated = rows.splice(0, 1)[0];
 		const dateUpdated = rows.splice(0, 1)[0];
-		const status = rows.splice(0, 1)[0];
-		const refStatus = rows.splice(0, 1)[0];
+		let status = rows.splice(0, 1)[0];
+		status = titleCase(status);
+		let refStatus = rows.splice(0, 1)[0];
+		refStatus = titleCase(refStatus);
 		const lesionPhoto = rows.splice(0, 1)[0];
 
-		console.log(id);
-		console.log(dateCreated);
-		console.log(dateUpdated);
-		console.log(status);
-		console.log(refStatus);
-		console.log(lesionPhoto);
-
 		return (
-			<div>
-				<p>ID: {id}</p>
-				<p>Status: {status}</p>
-				<img src={lesionPhoto} width="100%"/>
-				<Timestamp time={dateCreated} format="date"/>
-				<br/>
-				<Timestamp time={dateUpdated} format="date"/>
-				<p>Refer Status: {refStatus}</p>
+			<div className="caseBlock">
+				<div className="caseImg-container">
+					<img src={lesionPhoto} width="100%" className="caseImg"/>
+				</div>
+				<div className="caseContent-container">
+					<p><span className="caseContent-title">Case Number:</span><br/>{id}</p>
+					<p><span className="caseContent-title">Status:</span><br/>{status}</p>
+					<p><span className="caseContent-title">Date Created:</span><br/><Moment format="DD/MM/YYYY" unix date={dateCreated} /></p>
+					<p><span className="caseContent-title">Date Updated:</span><br/><Moment format="DD/MM/YYYY" unix date={dateUpdated} /></p>
+					<p><span className="caseContent-title">Refer Status:</span><br/>{refStatus}</p>
+				</div>
 			</div>
 		);
 
 	};
-
 
   render() {
     const rowsWithColumns = parseCsvToRowsAndColumn(this.props.data.trim(), this.props.csvDelimiter);
@@ -50,7 +47,7 @@ class CsvToContent extends React.Component {
 
     return (
       <div>
-        {this.props.data && this.state && this.renderTableBody(rowPickContent)}
+				{this.props.data && this.state && this.renderTableBody(rowPickContent)}
       </div>);
   }
 }

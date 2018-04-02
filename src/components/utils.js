@@ -13,3 +13,12 @@ export function parseCsvToRowsAndColumn(csvText, csvColumnDelimiter = '\t') {
 
     return rowsWithColumns;
 }
+
+export function parseCsvToRowsAndColumnEdit(csvText, csvColumnDelimiter = '\t') {
+    const rows = csvText.split('\n');
+    const rowsWithColumns = map(rows, (row) => {
+        return row.split(csvColumnDelimiter);
+		});
+
+    return rowsWithColumns;
+}

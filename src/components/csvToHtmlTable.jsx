@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { Link } from 'react-router-dom';
-
+import * as moment from 'moment';
+import Moment from 'react-moment';
+import * as titleCase from 'title-case';
 import { parseCsvToRowsAndColumn } from './utils';
+
 
 class CsvToHtmlTable extends React.Component {
 
@@ -13,6 +16,7 @@ class CsvToHtmlTable extends React.Component {
   }
 
   renderTableHeader = (row) => {
+    const lesionPhoto = row.splice(5, 1)[0];
     if (row) {
       return (<thead>
         <tr>
@@ -27,13 +31,28 @@ class CsvToHtmlTable extends React.Component {
   };
 
   renderTableBody = (rows) => {
+    rows.forEach(function(row) {
+
+      // need to titleize the headers and content of the table
+      const photoToDelete = row.splice(5, 1)[0];
+      const dateCreated = row[1];
+      const dateUpdated = row[2];
+      const formatDateCreated = moment.unix(dateCreated).format("DD/MM/YYYY");
+      const formatDateUpdated = moment.unix(dateUpdated).format("DD/MM/YYYY");
+
+      row[1] = formatDateCreated;
+      row[2] = formatDateUpdated;
+
+    });
     return (
       <tbody>
       {
         map(rows, (row, i) => (
           <tr className={this.props.tableRowClassName} key={i}>
           {
-            map(row, (column, j) => (<td className={this.props.tableColumnClassName} key={`${j}${column}`}><Link to={`/cases/${i+1}`}>{column}</Link></td>))
+            map(row, (column, j) => (
+              <td className={this.props.tableColumnClassName} key={`${j}${column}`}><Link to={`/cases/${i+1}`}>{column}</Link></td>
+            ))
           }
           </tr>
         ))
