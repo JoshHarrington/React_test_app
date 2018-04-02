@@ -22,7 +22,7 @@ class Case extends React.Component {
 
     return (
 			<div>
-				<Link to="/">Home button</Link>
+				<Link to="/" className="case-home-link">{`< `}Home button</Link>
 				<CsvToContent
 					data={this.state.casesCSV}
 					csvDelimiter=","

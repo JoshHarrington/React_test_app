@@ -18,6 +18,10 @@ class CsvToHtmlTable extends React.Component {
   renderTableHeader = (row) => {
     const lesionPhoto = row.splice(5, 1)[0];
     if (row) {
+      row.forEach(function(column, i) {
+        let columnHeader = row[i];
+        row[i] = titleCase(columnHeader);
+      });
       return (<thead>
         <tr>
           {
@@ -33,22 +37,24 @@ class CsvToHtmlTable extends React.Component {
   renderTableBody = (rows) => {
     rows.forEach(function(row) {
 
-      // need to titleize the headers and content of the table
       const photoToDelete = row.splice(5, 1)[0];
-      const dateCreated = row[1];
-      const dateUpdated = row[2];
-      const formatDateCreated = moment.unix(dateCreated).format("DD/MM/YYYY");
-      const formatDateUpdated = moment.unix(dateUpdated).format("DD/MM/YYYY");
 
-      row[1] = formatDateCreated;
-      row[2] = formatDateUpdated;
+      const dateCreated = row[1];
+      row[1] = moment.unix(dateCreated).format("DD/MM/YYYY");
+      const dateUpdated = row[2];
+      row[2] = moment.unix(dateUpdated).format("DD/MM/YYYY");
+
+      const status = row[3];
+      row[3] = titleCase(status);
+      const refStatus = row[4];
+      row[4] = titleCase(refStatus);
 
     });
     return (
       <tbody>
       {
         map(rows, (row, i) => (
-          <tr className={this.props.tableRowClassName} key={i}>
+          <tr className={this.props.tableRowClassName} key={i} onClick={this.onItemClick}>
           {
             map(row, (column, j) => (
               <td className={this.props.tableColumnClassName} key={`${j}${column}`}><Link to={`/cases/${i+1}`}>{column}</Link></td>
@@ -67,6 +73,7 @@ class CsvToHtmlTable extends React.Component {
     if (this.props.hasHeader) {
       headerRow = rowsWithColumns.splice(0, 1)[0];
     }
+
 
     return (
       <table className={`csv-html-table ${this.props.tableClassName}`}>

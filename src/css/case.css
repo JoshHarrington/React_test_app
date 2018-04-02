@@ -1,3 +1,10 @@
+.case-home-link {
+	margin-bottom: 10px;
+	display: block;
+	text-decoration: none;
+	color: darkblue;
+}
+
 .caseBlock {
 	display: flex;
 	align-items: flex-start;
@@ -27,8 +34,15 @@
 	padding-right: 10px;
 }
 
+.caseImg-container img {
+	background-color: lightgray;
+}
+
 @media (max-width: 500px) {
 	.caseImg-container {
 		width: 70%;
+	}
+	.caseContent-container {
+		min-width: auto;
 	}
 }

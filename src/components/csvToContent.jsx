@@ -14,14 +14,14 @@ class CsvToContent extends React.Component {
 
   renderTableBody = (rows) => {
 
-		const id = rows.splice(0, 1)[0];
-		const dateCreated = rows.splice(0, 1)[0];
-		const dateUpdated = rows.splice(0, 1)[0];
-		let status = rows.splice(0, 1)[0];
+		const id = rows[0];
+		const dateCreated = rows[1];
+		const dateUpdated = rows[2];
+		let status = rows[3];
 		status = titleCase(status);
-		let refStatus = rows.splice(0, 1)[0];
+		let refStatus = rows[4];
 		refStatus = titleCase(refStatus);
-		const lesionPhoto = rows.splice(0, 1)[0];
+		const lesionPhoto = rows[5];
 
 		return (
 			<div className="caseBlock">
