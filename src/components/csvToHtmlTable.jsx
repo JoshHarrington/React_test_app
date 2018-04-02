@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
+import { Link } from 'react-router-dom';
 
 import { parseCsvToRowsAndColumn } from './utils';
 
@@ -32,7 +33,7 @@ class CsvToHtmlTable extends React.Component {
         map(rows, (row, i) => (
           <tr className={this.props.tableRowClassName} key={i}>
           {
-            map(row, (column, j) => (<td className={this.props.tableColumnClassName} key={`${j}${column}`}><a href={i}>{column}</a></td>))
+            map(row, (column, j) => (<td className={this.props.tableColumnClassName} key={`${j}${column}`}><Link to={`/cases/${i+1}`}>{column}</Link></td>))
           }
           </tr>
         ))
